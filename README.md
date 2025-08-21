@@ -94,7 +94,7 @@ Visit: [http://localhost:5173](http://localhost:5173)
 ---
 
 ## ⚙️ Environment Variables
-Each task ships with a `.env.example`. Copy to `.env` and adjust as needed.
+Each task ships with `.env` and adjust as needed.
 
 ### Example (frontend)
 ```
