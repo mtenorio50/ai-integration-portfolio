@@ -1,0 +1,13 @@
+{
+    "scripts": {
+        "install:clean": "rm -rf node_modules package-lock.json && npm install",
+        "install:fresh": "npm ci",
+        "check:deps": "npm audit",
+        "check:outdated": "npm outdated",
+        "update:deps": "npm update",
+        "list:deps": "npm list --depth=0",
+        "dev:clean": "npm run clean && npm run dev",
+        "clean": "rm -rf dist .vite",
+        "type:check": "tsc --noEmit"
+    }
+}
