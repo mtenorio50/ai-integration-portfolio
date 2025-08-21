@@ -42,7 +42,18 @@ npm run dev
 2. Add valid VITE_OPENAI_API_KEY
 3. Type: "Explain React hooks"
 4. Should see GPT-generated suggestions
+
+# HuggingFace Provider (Available in this project)
+1. Set .env: VITE_AI_PROVIDER=hf
+2. Add valid VITE_HF_TOKEN
+3. Type: "Machine learning basics"
+4. Should see HF model suggestions
 ```
+
+#### **⚠️ Provider Support Note:**
+- **ai-form-autocomplete**: Supports all 4 providers (Mock, OpenAI, Gemini, HuggingFace)
+- **ai-workflow-api**: Supports all 4 providers (Mock, OpenAI, Gemini, HuggingFace)  
+- **ai-fullstack**: Supports only 3 providers (Mock, OpenAI, Gemini - NO HuggingFace)
 
 #### **🔥 Error Handling Test:**
 ```bash
@@ -127,7 +138,8 @@ Invoke-RestMethod -Method Post "http://localhost:3000/generate-step" `
 1. AI_PROVIDER=mock (instant responses)
 2. AI_PROVIDER=gemini (Google AI responses)  
 3. AI_PROVIDER=openai (GPT responses)
-4. Restart server and test same endpoint
+4. AI_PROVIDER=hf (HuggingFace responses - workflow-api only)
+5. Restart server and test same endpoint
 ```
 
 ---
@@ -245,6 +257,11 @@ Invoke-RestMethod -Method Post "http://localhost:3001/ai/complete" `
 # Update all .env files: *_AI_PROVIDER=openai
 # Add valid API keys
 # Expected: GPT responses
+
+# 4. Test HuggingFace (Limited availability)
+# ai-form-autocomplete/.env: VITE_AI_PROVIDER=hf + VITE_HF_TOKEN
+# ai-workflow-api/.env: AI_PROVIDER=hf + HF_TOKEN
+# Note: ai-fullstack backend does NOT support HuggingFace
 ```
 
 ### **🔧 Performance Testing:**

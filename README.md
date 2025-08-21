@@ -71,12 +71,12 @@ cd ../frontend && npm install && npm run dev               # Terminal 2
 **Enhanced smart form completion with debounced AI suggestions**
 
 - 📍 **Path:** `ai-form-autocomplete/`
-- 🤖 **AI Integration:** Gemini 1.5-flash with OpenAI & Mock fallbacks
+- 🤖 **AI Integration:** Full provider support (OpenAI, Gemini, HuggingFace, Mock)
 - ⚡ **Features:** 
   - Debounced input (500ms) to reduce API calls
   - Smart autocomplete suggestions as you type
   - Error handling with user-friendly messages
-  - Provider switching (Gemini/OpenAI/Mock)
+  - Full provider switching (4 providers supported)
   - Responsive design with proper text wrapping
 
 **Run:**
@@ -94,7 +94,7 @@ npm run dev
 
 - 📍 **Path:** `ai-workflow-api/`
 - 📚 **API Docs:** Interactive Swagger UI at `/api-docs`
-- 🤖 **AI Integration:** Multi-provider support with intelligent task breakdown
+- 🤖 **AI Integration:** Full provider support (OpenAI, Gemini, HuggingFace, Mock)
 - ⚡ **Features:**
   - RESTful API design with proper HTTP status codes
   - Comprehensive error handling and logging
@@ -125,13 +125,14 @@ npm run dev
 - 🎨 **Frontend:** React with responsive design (max-width: 720px)
 - 🔧 **Backend:** Express API with CORS and comprehensive error handling
 - 📚 **API Docs:** Swagger documentation for backend endpoints
+- 🤖 **AI Support:** Limited to OpenAI, Gemini, and Mock providers (no HuggingFace)
 - ⚡ **Features:**
   - Real-time AI text completion
   - Responsive textarea with proper text wrapping
   - Loading states and error handling
   - CORS configuration for frontend-backend communication
   - Environment variable management
-  - Multi-provider AI support (OpenAI, Gemini, Mock)
+  - Streamlined 3-provider AI support
 
 **Backend Endpoints:**
 - `GET /` → API information
@@ -166,15 +167,17 @@ Each project ships with comprehensive environment management and AI provider fle
 - **🤖 OpenAI GPT-4o-mini** - Production-grade text completion
 - **🟡 Google Gemini 1.5-flash** - Fast, efficient AI completions  
 - **🎭 Mock Provider** - Local development without API keys
+- **🤗 HuggingFace** - Available in ai-form-autocomplete and ai-workflow-api only
 
 ### **📝 Environment Variables Setup:**
 
 #### **Frontend Projects (.env):**
 ```env
 # AI Provider Configuration
-VITE_AI_PROVIDER=gemini          # gemini | openai | mock
+VITE_AI_PROVIDER=gemini          # gemini | openai | hf | mock (hf only in ai-form-autocomplete)
 VITE_GEMINI_API_KEY=your_key_here
 VITE_OPENAI_API_KEY=your_key_here
+VITE_HF_TOKEN=your_token_here    # Only for ai-form-autocomplete
 
 # Development Settings  
 VITE_DEBUG=true
@@ -187,9 +190,11 @@ PORT=3000
 NODE_ENV=development
 
 # AI Provider Configuration
-AI_PROVIDER=gemini               # gemini | openai | mock
+AI_PROVIDER=gemini               # For ai-workflow-api: gemini | openai | hf | mock
+                                # For ai-fullstack: gemini | openai | mock (HF not supported)
 GEMINI_API_KEY=your_key_here
 OPENAI_API_KEY=your_key_here
+HF_TOKEN=your_token_here        # Only for ai-workflow-api
 
 # Security & CORS
 CORS_ORIGIN=http://localhost:5173
