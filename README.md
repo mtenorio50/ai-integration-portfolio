@@ -1,4 +1,4 @@
-# Decoded Digital Portfolio — 3 Proof Tasks
+# AI Integration
 
 This repository contains **three self-contained, TypeScript-first projects** that demonstrate practical AI integrations across frontend, backend, and full-stack setups.  
 
