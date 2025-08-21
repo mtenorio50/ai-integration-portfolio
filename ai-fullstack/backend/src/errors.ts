@@ -1,0 +1,2 @@
+export class AppError extends Error { status: number; code: string; constructor(message: string, o: {status?: number; code?: string} = {}){ super(message); this.status=o.status??500; this.code=o.code??"INTERNAL_ERROR"; } }
+export function errorMiddleware(err:any,_req:any,res:any,_next:any){ res.status(err?.status??500).json({ error: err?.message??"Unexpected error", code: err?.code??"INTERNAL_ERROR" }); }

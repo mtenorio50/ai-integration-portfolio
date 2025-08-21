@@ -8,6 +8,27 @@ const app = express();
 app.use(express.json());
 app.use(logRequest);
 
+app.get("/", (_req, res) => {
+  res.json({
+    name: "AI Workflow API",
+    version: "0.1.0",
+    description: "API for AI-powered workflow automation",
+    endpoints: [
+      {
+        path: "/health",
+        method: "GET",
+        description: "Health check endpoint"
+      },
+      {
+        path: "/generate-step",
+        method: "POST",
+        description: "Generate next workflow step",
+        body: { task: "string" }
+      }
+    ]
+  });
+});
+
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 app.post("/generate-step", async (req, res, next) => {

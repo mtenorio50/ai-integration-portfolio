@@ -14,6 +14,7 @@ class AppError extends Error {
 const provider = import.meta.env.VITE_AI_PROVIDER ?? "mock";
 const OPENAI_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const HF_TOKEN = import.meta.env.VITE_HF_TOKEN;
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 export async function getSuggestions(input: string): Promise<SuggestionResult> {
   if (!input?.trim()) return { suggestions: [], meta: { provider } };
@@ -63,6 +64,46 @@ export async function getSuggestions(input: string): Promise<SuggestionResult> {
       text.slice(0, 60)
     ];
     return { suggestions, meta: { provider: "hf" } };
+  }
+
+
+
+  if (p === "gemini") {
+    if (!GEMINI_KEY) throw new AppError("Missing Gemini API key", { status: 503, code: "NO_API_KEY" });
+
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: `Generate exactly 3 short autocomplete suggestions for: "${input}". Format each suggestion on a new line with no bullet points or numbers.`
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.2,
+            maxOutputTokens: 100
+          }
+        })
+      }
+    );
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new AppError(`Gemini error ${res.status}: ${errorData?.error?.message || 'Unknown error'}`, { status: 502, code: "UPSTREAM_ERROR" });
+    }
+
+    const data = await res.json();
+    const text: string = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+    const suggestions = text
+      .split(/\n|\r/)
+      .map(s => s.replace(/^[-*\s0-9.]+/, "").trim())
+      .filter(Boolean)
+      .slice(0, 3);
+
+    return { suggestions, meta: { provider: "gemini" } };
   }
 
   // Mock provider: deterministic suggestions for demo/review

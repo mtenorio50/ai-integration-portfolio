@@ -1,0 +1,1 @@
+export const logger = (req:any,res:any,next:any)=>{ const t=Date.now(); res.on("finish",()=>{ console.log(`${req.method} ${req.url} ${res.statusCode} - ${Date.now()-t}ms`); }); next(); };
