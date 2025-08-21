@@ -124,7 +124,7 @@ HF_TOKEN=
 
 ---
 
-## 📦 Deployment
+## 📦 Deployment (future)
 - **Frontend:** Vercel
 - **Backend APIs:** Render, Railway, or similar
 - Ensure environment variables are configured on deployment provider
